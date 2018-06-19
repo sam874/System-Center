@@ -34,7 +34,7 @@ param(
 Function Disconnect-SiteTo{
 param(
 [parameter(mandatory=$true)][string]$Site,
-[parameter(mandatory=$true)][string]$MachineName
+[parameter(mandatory=$tfalse)][string]$MachineName
 )
   If((Get-PSDrive -Name $Site -PSProvider CMSite -ErrorAction SilentlyContinue) -ne $null) {
     Remove-PSDrive -Name $Site
