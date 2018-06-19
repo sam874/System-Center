@@ -3,7 +3,7 @@
 .SYNOPSIS
   Administration System Center 
 .DESCRIPTION
-    Connexion/Déconnexion Site
+    Connexion/DÃ©connexion Site
 .NOTES
     Version: 1.0.0.0
     Author:  OBY
@@ -21,7 +21,7 @@ param(
   If(Test-Path $PathSCCM){
     import-module $PathSCCM
     If((Get-Module ConfigurationManager) -ne $null){
-      If(Get-PSDrive -Name $Site -PSProvider CMSite -ErrorAction SilentlyContinue) -eq $null) {
+      If((Get-PSDrive -Name $Site -PSProvider CMSite -ErrorAction SilentlyContinue) -eq $null) {
         New-PSDrive -Name $Site -PSProvider CMSite -Root $NameMachine       
         Write-Host "Mount Drive[$Site]  : OK"   
         Set-Location "$($Site):\"   
@@ -36,7 +36,7 @@ param(
 [mandatory=true][string]$Site,
 [mandatory=true][string]$NameMachine
 )
-  If(Get-PSDrive -Name $Site -PSProvider CMSite -ErrorAction SilentlyContinue) -ne $null) {
+  If((Get-PSDrive -Name $Site -PSProvider CMSite -ErrorAction SilentlyContinue) -ne $null) {
     Remove-PSDrive -Name $Site
     Write-Host "Disconnect to Site[$Site] : OK"
   }Else{ Write-Host "Disconnect to Site[$Site] : KO , erreur Drive[$Site] not exist!"}
