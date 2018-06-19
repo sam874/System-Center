@@ -22,9 +22,10 @@ param(
     import-module $PathSCCM
     If((Get-Module ConfigurationManager) -ne $null){
       If(Get-PSDrive -Name $Site -PSProvider CMSite -ErrorAction SilentlyContinue) -eq $null) {
-        New-PSDrive -Name $Site -PSProvider CMSite -Root $NameMachine
-        Write-Host "Connect to Site[$Site] : OK"
-        Set-Location "$($Site):\"
+        New-PSDrive -Name $Site -PSProvider CMSite -Root $NameMachine       
+        Write-Host "Mount Drive[$Site]  : OK"   
+        Set-Location "$($Site):\"   
+        If((Get-CMSite) -ne $null{Write-Host "Connect to Site[$Site] : OK"}Else{Write-Host "Connect to Site[$Site] : KO"}
       }
     }Else{Write-Host "Module[ConfigurationManager] not imported"}
   }Else{Write-Host "File [ConfigurationManager.psd1] not found"}
