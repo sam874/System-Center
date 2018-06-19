@@ -14,18 +14,18 @@
 #Function Connected Site System
 Function Connect-SiteTo{
 param(
-[mandatory=true][string]$Site,
-[mandatory=true][string]$NameMachine,
-[mandatory=false][string]$PathSCCM = "C:\Program Files (x86)\Microsoft Configuration Manager\AdminConsole\bin\ConfigurationManager.psd1"
+[parameter(mandatory=$true)][string]$Site,
+[parameter(mandatory=$true)][string]$MachineName,
+[parameter(mandatory=$false)][string]$PathSCCM = "C:\Program Files (x86)\Microsoft Configuration Manager\AdminConsole\bin\ConfigurationManager.psd1"
 )
   If(Test-Path $PathSCCM){
     import-module $PathSCCM
     If((Get-Module ConfigurationManager) -ne $null){
       If((Get-PSDrive -Name $Site -PSProvider CMSite -ErrorAction SilentlyContinue) -eq $null) {
-        New-PSDrive -Name $Site -PSProvider CMSite -Root $NameMachine       
+        New-PSDrive -Name $Site -PSProvider CMSite -Root $MachineName   -ErrorAction SilentlyContinue    
         Write-Host "Mount Drive[$Site]  : OK"   
         Set-Location "$($Site):\"   
-        If((Get-CMSite) -ne $null{Write-Host "Connect to Site[$Site] : OK"}Else{Write-Host "Connect to Site[$Site] : KO"}
+        If((Get-CMSite) -ne $null){Write-Host "Connect to Site[$Site] : OK"}Else{Write-Host "Connect to Site[$Site] : KO"}
       }
     }Else{Write-Host "Module[ConfigurationManager] not imported"}
   }Else{Write-Host "File [ConfigurationManager.psd1] not found"}
@@ -33,8 +33,8 @@ param(
 #Function Connected Site System
 Function Disconnect-SiteTo{
 param(
-[mandatory=true][string]$Site,
-[mandatory=true][string]$NameMachine
+[parameter(mandatory=$true)][string]$Site,
+[parameter(mandatory=$true)][string]$MachineName
 )
   If((Get-PSDrive -Name $Site -PSProvider CMSite -ErrorAction SilentlyContinue) -ne $null) {
     Remove-PSDrive -Name $Site
