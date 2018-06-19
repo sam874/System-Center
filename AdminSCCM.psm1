@@ -1,7 +1,7 @@
 #requires -version 3
 <#
 .SYNOPSIS
-  Gestion Administration System Center 
+  Administration System Center 
 .DESCRIPTION
     Connexion/Déconnexion Site
 .NOTES
